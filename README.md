@@ -27,16 +27,17 @@ enable = true # Required: explicitly enable the addon
 ## Build
 
 ```bash
-git clone --recurse-submodules https://github.com/qgp9/hugo-addon
+git clone --recursive --depth=1 --shallow-submodules https://github.com/qgp9/hugo-addon
 cd hugo-addon
-./bin/patch.sh prepare
+./bin/patch.sh check 
 ./bin/patch.sh apply
-cp -r wikilink/addon hugo/
+cp -r addons/wikilink/addon hugo/
 
 cd hugo
 go mod tidy
 go build -tags wikilink
-# "hugo" binary is built in the current directory.
+./hugo version
+# hugo v0.148.1-65267cc6ffc4098cd3b8b809ee57b8a0c20f2351+wikilink darwin/arm64 BuildDate=
 go test -tags wikilink addon/wikilink/tests/*
 ```
 
